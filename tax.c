@@ -5,6 +5,17 @@ Purpose: C Program to calculate estimated Australian TAX for Year 21-22 as per a
 ***************************************************************************************/
 
 #include <stdio.h>
+#define taxBracket0 18200
+#define taxBracket1 45000
+#define taxBracket2 120000
+#define taxBracket3 180000
+#define fixedCents1 0.19
+#define fixedCents2 0.325
+#define fixedCents3 0.37
+#define fixedCents4 0.45
+#define fixedDollar2 5092
+#define fixedDollar3 29467
+#define fixedDollar4 51667
 
 int main () {
 	
@@ -12,35 +23,36 @@ int main () {
 	int taxReturn;
 	float taxPayable;
 	
+	//Australian Tax Brackets as per ATO Website
 	printf("\nNote: This is not an official calcualtor from the ATO. An official Calculator can be found on the ATO website. \n This calculator also does not account for the 2% Medicare Levy.");
 	printf("What was your taxable income for the 2021-22 Financial Year? (rounded to the nearest dollar without commas or full stops): $");
 	scanf("%d", &income);
 	
 	printf("\nYour reported INCOME for the 2021-22 Financial Year was: %d \n", income);
 	
-		if (income > 0 && income <= 18200)
+		if (income > 0 && income <= taxBracket0)
 		{
 			taxPayable = income;
-			printf("No tax payable if earning for Financial Year is less than $18200.");
+			printf("No tax payable if earning for Financial Year is less than $%d.", taxBracket0);
 		}
-		else if (income > 18200 && income <= 45000)
+		else if (income > taxBracket0 && income <= taxBracket1)
 		{
-			taxPayable = (income - 18200) * 0.19; //19c for each $1 over $18,200
+			taxPayable = (income - taxBracket0) * fixedCents1; //19c for each $1 over $18200
 			printf("\nYour estimated total tax payable for the 2021-22 Financial Year is: %0.2f", taxPayable);
 		}
-		else if (income > 45000 && income <= 120000)
+		else if (income > taxBracket1 && income <= taxBracket2)
 		{
-			taxPayable = 5092 +((income - 45000) * 0.325); // 5092 + 32.5c for each $1 over 45000
+			taxPayable = fixedDollar2 +((income - taxBracket1) * fixedCents2); // 5092 + 32.5c for each $1 over 45000
 			printf("\nYour estimated total tax payable for the 2021-22 Financial Year is: %0.2f", taxPayable);
 		}
-		else if (income > 120000 && income <= 180000)
+		else if (income > taxBracket2 && income <= taxBracket3)
 		{
-			taxPayable = 29467 +((income - 120000) * 0.37); // 29,467 + 37 for each $1 over 120,000
+			taxPayable = fixedDollar3 +((income - taxBracket2) * fixedCents3); // 29,467 + 37 for each $1 over 120,000
 			printf("\nYour estimated total tax payable for the 2021-22 Financial Year is: %0.2f", taxPayable);
 		}
-		else if (income > 180000)
+		else if (income > taxBracket3)
 		{
-			taxPayable = 51667 +((income - 180000) * 0.45); // 51,667 + 45c for each $1 over 180,000
+			taxPayable = fixedDollar4 +((income - taxBracket3) * fixedCents4); // 51,667 + 45c for each $1 over 180,000
 			printf("\nYour estimated total tax payable for the 2021-22 Financial Year is: %0.2f", taxPayable);
 		}
 		else {
